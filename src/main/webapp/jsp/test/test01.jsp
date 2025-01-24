@@ -21,7 +21,25 @@
 	<% 
 		List<String> scoreList = Arrays.asList(new String[]{"X", "O", "O", "O", "X", "O", "O", "O", "X", "O"});
 		int score = 0;
+		for(String answer:scoreList) {
+			if(answer.equals("O")) {
+				score += 1;
+			}
+		}
+		score = score / scoreList.size() * 100;
 	%>
 	<h1>체점 결과는 <%= score %> 입니다.</h1>
+	
+	<%! 
+	public int sumAll(int number) {
+		int sum = 0;
+		for(int i = 1; i <= number; i++) {
+			sum += i;
+		}
+		
+		return sum;
+	}
+	%>
+	<h1>1부터 50까지의 합은 <%= sumAll(50) %> 입니다.</h1>
 </body>
 </html>
