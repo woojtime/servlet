@@ -52,31 +52,28 @@ map = new HashMap<String, Object>() {
         put("image", "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/4808972756194.jpg");
     } 
 };
-list.add(map); %>
+list.add(map); 
+	
+	int id = Integer.parseInt(request.getParameter("id"));
+%>
 
-<div class="container">
-	<h1 class="d-flex justify-content-center">책 목록</h1>
-	<table class="table text-center">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>표지</th>
-				<th>제목</th>
-			</tr>
-		</thead>
-		<tbody>
-		<%
-		 for(Map<String, Object> bookinfo : list) {
-		%>
-			<tr>
-				<td><%= bookinfo.get("id") %></td>
-				<td><img width="120" src="<%= bookinfo.get("image") %>"/></td>
-				<td><a href="/jsp/test/test08-page.jsp?id=<%= bookinfo.get("id")%>"><%= bookinfo.get("title") %></a></td>
-			</tr>
+	<div class="container">
+	<% for(Map<String, Object> book:list) { 
+		int bookId = (Integer) book.get("id");
+		if(bookId == id) {
+	%>
+		<div class="d-flex">
+			<div>
+				<img src="<%= book.get("image") %>"/>
+			</div>
+			<div>
+				<div class="display-1 font-weight-bold"><%= book.get("title") %></div>
+				<div class="display-2 text-info"><%= book.get("author") %></div>
+				<div class="display-4"><%= book.get("publisher") %></div>
+			</div>
+		</div>
 		<% } %>
-		</tbody>
-	</table>
-</div>
-
+	<% } %>
+	</div>
 </body>
 </html>
