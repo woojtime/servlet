@@ -87,14 +87,40 @@
     musicInfo.put("composer", "아이유,이종훈,이채규");
     musicInfo.put("lyricist", "아이유");
     musicList.add(musicInfo);
+    
+    String idStr = request.getParameter("id");
+    String title = request.getParameter("title");
+    Map<String, Object> info = null;
+    for(Map<String, Object> music : musicList) {
+    	int id = 0;
+    	if(idStr != null) {
+    		id = Integer.parseInt(idStr);
+    	}
+    	
+    	int musicId = (Integer)music.get("id");
+    	
+    	if((id != 0 && musicId == id) || (title != null && music.get("title").equals(title))) {
+    		info = music;
+    		break;
+    	}
+    }
 %>
 	<div class="container">
 		<div class="d-flex">	
-			<h1>Melong</h1>
-			<input class="form-control col-3"/><button class="bg-success">검색</button>
+			<h1 class="text-success">Melong</h1>
+			<div class="search d-flex col-10 align-items-center">
+				<form method="get" action="/jsp/test/test10-detail.jsp" class="col-6">
+					<div class="input-group">
+						<input class="form-control" type="text" name="title"/>
+						<div class="input-group-append">
+							<button class="btn btn-success" type="submit">검색</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 		<nav class="main-menu">			
-			<ul class="nav">
+			<ul class="nav font-weight-bold">
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">멜롱챠트</a></li>
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">최신음악</a></li>
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">장르음악</a></li>
@@ -102,6 +128,28 @@
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">뮤직어워드</a></li>
 			</ul>
 		</nav>
+		<h3>곡 정보</h3>
+		<%
+			int time = (Integer)info.get("time");
+		%>
+		<div class="d-flex border border-success p-3">
+			<div>
+				<img width="150" alt="IU" src="<%= info.get("thumbnail") %>"/>
+			</div>
+			<div class="ml-3">
+				<h4><%= info.get("title") %></h4>
+				<div><%= info.get("singer") %></div>
+				<div>앨범 : <%= info.get("album") %></div>
+				<div>재생 시간 : <%= time / 60 %> : <%= time % 60 %></div>
+				<div>작곡가 : <%= info.get("composer") %></div>
+				<div>작사가 : <%= info.get("lyricist") %></div>
+			</div>
+		</div>
+		<h3>가사</h3>
+		<hr>
+		<div>가사 정보 없음</div>
+		<hr>
+		<footer>Copyright 2025. melong All Rights Reserved.</footer>
 	</div>
 </body>
 </html>

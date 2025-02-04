@@ -90,11 +90,20 @@
 %>
 	<div class="container">
 		<div class="d-flex">	
-			<h1>Melong</h1>
-			<input class="form-control col-3"/><button class="bg-success">검색</button>
+			<h1 class="text-success">Melong</h1>
+			<div class="search d-flex col-10 align-items-center">
+				<form method="get" action="/jsp/test/test10-detail.jsp" class="col-6">
+					<div class="input-group">
+						<input class="form-control" type="text" name="title"/>
+						<div class="input-group-append">
+							<button class="btn btn-success" type="submit">검색</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 		<nav class="main-menu">			
-			<ul class="nav">
+			<ul class="nav font-weight-bold">
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">멜롱챠트</a></li>
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">최신음악</a></li>
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">장르음악</a></li>
@@ -102,35 +111,40 @@
 				<li class="nav-item"><a href="/jsp/test/test10.jsp" class="nav-link text-dark">뮤직어워드</a></li>
 			</ul>
 		</nav>
-		<div class="d-flex">
-			<img width="150" alt="IU" src="<%= artistInfo.get("photo") %>"/>
+		<div class="d-flex border border-success p-3">
 			<div>
-				<h3><%= artistInfo.get("name") %></h3>
-				<h4><%= artistInfo.get("agency") %></h4>
-				<h4><%= artistInfo.get("debute") %> 데뷔</h4>
+				<img width="150" alt="IU" src="<%= artistInfo.get("photo") %>"/>
+			</div>
+			<div class="ml-3">
+				<h4><%= artistInfo.get("name") %></h4>
+				<div><%= artistInfo.get("agency") %></div>
+				<div><%= artistInfo.get("debute") %> 데뷔</div>
 			</div>
 		</div>
-		<h1>곡 목록</h1>
-		<table class="table text-center">
-			<thead>
-				<tr>
-					<th>no</th>
-					<th>제목</th>
-					<th>앨범</th>
-				</tr>
-			</thead>
-			<tbody>
-			<%
-			 for(Map<String, Object> music : musicList) {
-			%>
-				<tr>
-					<td><%= music.get("id") %></td>
-					<td><a href="#"><%= music.get("title") %></a></td>
-					<td><%= music.get("album") %></td>
-				</tr>
-			<% } %>
-			</tbody>
-		</table>
+		<div class="mt-3">
+			<h3>곡 목록</h3>
+			<table class="table text-center">
+				<thead>
+					<tr>
+						<th>no</th>
+						<th>제목</th>
+						<th>앨범</th>
+					</tr>
+				</thead>
+				<tbody>
+				<%
+				 for(Map<String, Object> music : musicList) {
+				%>
+					<tr>
+						<td><%= music.get("id") %></td>
+						<td><a href="/jsp/test/test10-detail.jsp?id=<%= music.get("id")%>"><%= music.get("title") %></a></td>
+						<td><%= music.get("album") %></td>
+					</tr>
+				<% } %>
+				</tbody>
+			</table>
+		</div>
+		<hr>
 		<footer>Copyright 2025. melong All Rights Reserved.</footer>
 	</div>
 </body>
