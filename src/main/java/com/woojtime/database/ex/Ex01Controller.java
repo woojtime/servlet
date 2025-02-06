@@ -1,4 +1,4 @@
-package com.woojtime.database;
+package com.woojtime.database.ex;
 
 import java.io.IOException;
 import java.io.PrintWriter;
