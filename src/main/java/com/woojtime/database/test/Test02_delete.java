@@ -15,14 +15,15 @@ public class Test02_delete extends HttpServlet{
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setContentType("text/plain");
+		
 		String id = request.getParameter("id");
 		
-		MysqlService mysqlService = new MysqlService();
+		MysqlService mysqlService = MysqlService.getInstance();
 		mysqlService.connect();
 		
 		String query = "DELETE FROM `woojin`.`url` WHERE (`id` = ' " + id + "');";
 		int count = mysqlService.update(query);
+		mysqlService.disconnect();
 		
 		response.sendRedirect("/db/test/test02.jsp");
 		

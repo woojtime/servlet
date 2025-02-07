@@ -19,7 +19,7 @@ public class Test02 extends HttpServlet{
 		String name = request.getParameter("name");
 		String url = request.getParameter("url");
 		
-		MysqlService mysqlService = new MysqlService();
+		MysqlService mysqlService = MysqlService.getInstance();
 		mysqlService.connect();
 		
 		String query = "INSERT INTO `url` \r\n"
@@ -28,6 +28,8 @@ public class Test02 extends HttpServlet{
 				+ "('" + name + "', '" + url + "');";
 		
 		int count = mysqlService.update(query);
+		
+		mysqlService.disconnect();
 		
 		response.sendRedirect("/db/test/test02.jsp");
 	}

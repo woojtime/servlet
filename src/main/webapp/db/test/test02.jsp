@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.woojtime.common.MysqlService" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,26 +16,31 @@
 	
 		mysqlService.connect();
 			
-		ResultSet resultSet = mysqlService.select("SELECT * FROM `url` ORDER BY `id` DESC");
+		List<Map<String, Object>> resultList = mysqlService.select("SELECT * FROM `url` ORDER BY `id` DESC");
 	%>
-	<h3>즐겨찾기 목록</h3>
 	
-	<table class="table text-center">
-		<thead>
-			<tr>
-				<th>사이트</th>
-				<th>사이트 주소</th>
-			</tr>
-		</thead>
-		<tbody>
-		<% while(resultSet.next()) { %>
-			<tr>
-				<td><%= resultSet.getString("name") %></td>
-				<td><a href="<%= resultSet.getString("url") %>"><%= resultSet.getString("url") %></a></td>
-				<td><a href="/db/test/test02/delete?id=<%= resultSet.getString("id") %>"> 삭제 </a></td>
-			</tr>
-		<% } %>
-		</tbody>
-	</table>
+	<div class="container">
+	
+		<h3>즐겨찾기 목록</h3>
+		
+		<table class="table text-center">
+			<thead>
+				<tr>
+					<th>사이트</th>
+					<th>사이트 주소</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<% for(Map<String, Object> result:resultList) { %>
+				<tr>
+					<td><%= result.get("name") %></td>
+					<td><a href="<%= result.get("url") %>"><%= result.get("url") %></a></td>
+					<td><a href="/db/test/test02/delete?id=<%= result.get("id") %>">삭제</a></td>
+				</tr>
+			<% } %>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
